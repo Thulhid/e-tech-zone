@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@layer base {
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+@layer components {
+  .input {
+    @apply h-6 rounded border border-slate-600 p-2 text-sm transition-all duration-300 focus:ring focus:ring-sky-400 focus:outline-none disabled:cursor-not-allowed disabled:border-none disabled:bg-slate-300/40 disabled:text-slate-500 md:h-8 md:w-3xs;
+  }
+}
