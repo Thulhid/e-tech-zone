@@ -1,4 +1,9 @@
-import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
+import {
+  HiOutlineMinus,
+  HiPencil,
+  HiSquare2Stack,
+  HiTrash,
+} from 'react-icons/hi2';
 import Menus from '../../ui/Menus';
 import Modal from '../../ui/Modal';
 import Table from '../../ui/Table';
@@ -22,6 +27,7 @@ function ProductRow({ product }) {
   } = product;
 
   function handleDuplicate() {
+    if (isCreating) return;
     createProduct({
       name: `Copy of ${name}`,
       regularPrice,
@@ -32,18 +38,22 @@ function ProductRow({ product }) {
   }
 
   return (
-    <Table.Row>
-      <img src={product.image} />
-      <div className="ml-1 text-[10px] font-medium md:text-sm md:font-semibold">
+    <Table.Row styles="mb-3 grid md:grid-cols-[1.8fr_5fr_5fr_4fr_6fr_1fr]  grid-cols-[1fr_3fr_2.5fr_2.5fr_3fr_1fr] grid-rows-1 items-start border-t border-t-slate-300 pt-2 text-slate-700 uppercase">
+      <img src={image} />
+      <div className="mr-3 ml-1 text-[10px] font-medium md:text-sm dark:text-slate-200">
         {product.name}
       </div>
-      <div className="text-[10px] font-medium md:text-sm md:font-semibold">
-        {formatCurrency(product.regularPrice)}
+      <div className="text-[10px] font-medium text-slate-500 md:text-sm md:font-semibold dark:text-slate-100">
+        {formatCurrency(regularPrice)}
       </div>
-      <div className="text-[10px] font-medium text-green-500 md:text-sm md:font-semibold">
-        {formatCurrency(product.discount)}
+      <div
+        className={`text-[10px] font-medium ${discount === 0 ? 'text-slate-500 dark:text-slate-100' : 'text-green-500 dark:text-green-400'} md:text-sm md:font-semibold`}
+      >
+        {discount === 0 ? <HiOutlineMinus /> : formatCurrency(discount)}
       </div>
-      <div className="text-[9px] md:text-xs">{product.description}</div>
+      <div className="text-[9px] md:text-xs dark:text-slate-100">
+        {description}
+      </div>
       {/*     <div>
        <button className="cursor-pointer">Edit</button>
       </div> */}
@@ -53,25 +63,40 @@ function ProductRow({ product }) {
           <Menus.List id={productId}>
             <Menus.ButtonMenu
               variant="small"
-              icon={<HiSquare2Stack className="text-slate-500" />}
+              icon={
+                <HiSquare2Stack
+                  size={18}
+                  className="text-slate-500 dark:text-slate-400"
+                />
+              }
               onClick={handleDuplicate}
             >
-              <span>Duplicate</span>
+              Duplicate
             </Menus.ButtonMenu>
             <Modal.Open opens="product-update">
               <Menus.ButtonMenu
                 variant="small"
-                icon={<HiPencil className="text-slate-500" />}
+                icon={
+                  <HiPencil
+                    size={18}
+                    className="text-slate-500 dark:text-slate-400"
+                  />
+                }
               >
-                <span>Edit</span>
+                Edit
               </Menus.ButtonMenu>
             </Modal.Open>
             <Modal.Open opens="product-delete">
               <Menus.ButtonMenu
                 variant="small"
-                icon={<HiTrash className="text-slate-500" />}
+                icon={
+                  <HiTrash
+                    size={18}
+                    className="text-slate-500 dark:text-slate-400"
+                  />
+                }
               >
-                <span>Delete</span>
+                Delete
               </Menus.ButtonMenu>
             </Modal.Open>
           </Menus.List>

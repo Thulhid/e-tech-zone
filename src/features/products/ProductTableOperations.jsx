@@ -1,8 +1,8 @@
-import Button from '../../ui/Button';
 import Filter from '../../ui/Filter';
 import SortBy from '../../ui/SortBy';
 
 function ProductTableOperations() {
+  const searchParamsToReset = [{ name: 'page', value: 1 }];
   return (
     <div className="mb-2 ml-auto w-fit items-center gap-1 sm:mb-3 sm:flex sm:gap-2">
       <Filter
@@ -12,6 +12,7 @@ function ProductTableOperations() {
           { value: 'no-discount', label: 'No discount' },
           { value: 'with-discount', label: 'With discount' },
         ]}
+        searchParamsToReset={searchParamsToReset}
       />
       <SortBy
         options={[

@@ -7,9 +7,9 @@ import {
   HiOutlineUsers,
 } from 'react-icons/hi2';
 
-function MainNav() {
+function MainNav({ styles }) {
   return (
-    <ul className="rounded border border-slate-600 bg-sky-100 shadow-md xl:flex xl:flex-col xl:items-center xl:gap-1 xl:border-none xl:bg-transparent xl:shadow-none">
+    <ul className={styles}>
       <NavItem to={'dashboard'}>
         <HiOutlineHome size={22} />
         <span className="hidden xl:block">Home</span>

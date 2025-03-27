@@ -1,4 +1,4 @@
-import { HiMiniPlus, HiMiniSquaresPlus, HiPlus } from 'react-icons/hi2';
+import { HiPlus } from 'react-icons/hi2';
 import Button from '../../ui/Button';
 import Modal from '../../ui/Modal';
 import CreateProductForm from './CreateProductForm';
@@ -23,5 +23,3 @@ function AddProduct() {
 }
 
 export default AddProduct;
-//  styles=
-//   variant="primary"

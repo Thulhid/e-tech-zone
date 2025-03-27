@@ -2,40 +2,39 @@ import { ImSpinner2 } from 'react-icons/im';
 import Table from '../../ui/Table';
 import ProductRow from './ProductRow';
 import { useProducts } from './useProducts';
-import { useSearchParams } from 'react-router-dom';
+import Empty from '../../ui/Empty';
+import Spinner from '../../ui/Spinner';
+import Pagination from '../../ui/Pagination';
 
 function ProductTable() {
-  const { products, isPending, error } = useProducts();
-  const [searchParams] = useSearchParams();
+  const { products, count, isPending } = useProducts();
 
-  if (isPending)
-    return (
-      <div className="flex h-40 items-end justify-center">
-        <ImSpinner2 size={60} className="animate-spin text-sky-300" />
-      </div>
-    );
-  const filterValue = searchParams.get('discount') || 'all';
+  if (isPending) return <Spinner />;
+  if (!products.length) return <Empty resourceName="products" />;
 
-  let filteredProducts;
+  //Note: Client side filter and Sorting
+  // const filterValue = searchParams.get('discount') || 'all';
 
-  if (filterValue === 'all') filteredProducts = products;
-  if (filterValue === 'no-discount')
-    filteredProducts = products?.filter((product) => product.discount === 0);
-  if (filterValue === 'with-discount')
-    filteredProducts = products?.filter((product) => product.discount !== 0);
+  // let filteredProducts;
 
-  const sortBy = searchParams.get('sortBy') || 'startDate-asc';
-  const [field, direction] = sortBy.split('-');
-  const modifier = direction === 'asc' ? 1 : -1;
-  const sortedProducts = filteredProducts.sort((a, b) => {
-    if (typeof a[field] === 'string') {
-      return a[field].localeCompare(b[field]) * modifier; // String comparison
-    }
-    return (a[field] - b[field]) * modifier; // Number comparison
-  });
+  // if (filterValue === 'all') filteredProducts = products;
+  // if (filterValue === 'no-discount')
+  //   filteredProducts = products?.filter((product) => product.discount === 0);
+  // if (filterValue === 'with-discount')
+  //   filteredProducts = products?.filter((product) => product.discount !== 0);
+
+  // const sortBy = searchParams.get('sortBy') || 'startDate-asc';
+  // const [field, direction] = sortBy.split('-');
+  // const modifier = direction === 'asc' ? 1 : -1;
+  // const sortedProducts = filteredProducts.sort((a, b) => {
+  //   if (typeof a[field] === 'string') {
+  //     return a[field].localeCompare(b[field]) * modifier; // String comparison
+  //   }
+  //   return (a[field] - b[field]) * modifier; // Number comparison
+  // });
   return (
     <Table>
-      <Table.Header>
+      <Table.Header styles="grid md:grid-cols-[1.8fr_5fr_5fr_4fr_6fr_1fr]  sm:grid-cols-[1fr_3fr_2.5fr_2.5fr_3fr_1fr] grid-cols-[0.05fr_3fr_2.5fr_2.5fr_3fr] grid-rows-1 items-center text-xs font-medium text-slate-700 uppercase sm:h-10 md:text-base p-2 sm:p-0 dark:text-slate-100">
         <div></div>
         <div>Product</div>
         <div>Regular Price</div>
@@ -45,9 +44,12 @@ function ProductTable() {
         <div></div>
       </Table.Header>
       <Table.Body
-        data={sortedProducts}
+        data={products}
         render={(product) => <ProductRow product={product} key={product.id} />}
       />
+      <Table.Footer>
+        <Pagination count={count} />
+      </Table.Footer>
     </Table>
   );
 }

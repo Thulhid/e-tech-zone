@@ -14,13 +14,10 @@ function Table({ children }) {
   );
 }
 
-function Header({ children }) {
+function Header({ children, styles }) {
   return (
     <div>
-      <header
-        role="row"
-        className="grid grid-cols-[1.8fr_5fr_5fr_5fr_6fr_1fr] grid-rows-1 items-center text-xs font-medium text-slate-700 uppercase md:h-10 md:text-base"
-      >
+      <header role="row" className={styles}>
         {children}
       </header>
     </div>
@@ -28,19 +25,19 @@ function Header({ children }) {
 }
 
 function Body({ data, render }) {
-  console.log(data);
   return <div>{data?.map(render)}</div>;
 }
 
-function Row({ children }) {
-  return (
-    <div className="mb-3 grid grid-cols-[1.8fr_5fr_5fr_5fr_6fr_1fr] grid-rows-1 items-start border-t border-t-slate-300 pt-2 text-slate-700 uppercase">
-      {children}
-    </div>
-  );
+function Row({ children, styles }) {
+  return <div className={styles}>{children}</div>;
+}
+
+function Footer({ children }) {
+  return <footer>{children}</footer>;
 }
 
 Table.Header = Header;
 Table.Body = Body;
 Table.Row = Row;
+Table.Footer = Footer;
 export default Table;

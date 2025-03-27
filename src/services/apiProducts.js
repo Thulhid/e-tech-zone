@@ -1,3 +1,4 @@
+import { PAGE_SIZE } from '../utils/constants';
 import { downloadAndUploadImage } from './downloadAndUploadImage';
 import supabase from './supabase';
 import { supabaseURL } from './supabase';
@@ -46,17 +47,32 @@ export async function createUpdateProduct(newProduct, id) {
   return data;
 }
 
-export async function getProducts() {
-  const { data: products, error } = await supabase.from('products').select('*');
+export async function getProducts({ page, filter, sortBy }) {
+  let query = supabase.from('products').select('*', { count: 'exact' });
+  if (filter !== null)
+    if (filter.value === 'no-discount') {
+      query = query.eq('discount', 0);
+    } else if (filter.value === 'with-discount') {
+      query = query.gt('discount', 0);
+    }
+  if (sortBy)
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === 'asc',
+    });
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+
+  const { data: products, count, error } = await query;
   if (error) throw new Error('Product could not be loaded');
 
-  return products;
+  return { products, count };
 }
 export async function deleteProduct(id, image) {
   const { data, error } = await supabase.from('products').delete().eq('id', id);
-  console.log(id, image);
   if (image) {
-    console.log(`products-images/${image.split('/').pop()}`);
     const { error } = await supabase.storage
       .from('products-images')
       .remove([image.split('/').pop()]);

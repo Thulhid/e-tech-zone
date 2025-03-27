@@ -6,9 +6,9 @@ import Button from './Button';
 
 const MenusContext = createContext();
 
-function Menu({ children }) {
-  return <div className="flex items-center justify-end">{children}</div>;
-}
+// function Menu({ children }) {
+//   return <div className="flex items-center justify-end">{children}</div>;
+// }
 
 function Menus({ children }) {
   const [openId, setOpenId] = useState('');
@@ -42,8 +42,14 @@ function Toggle({ id }) {
     openId === '' || openId !== id ? open(id) : close();
   }
   return (
-    <button onClick={handleClick}>
-      <HiEllipsisVertical size={25} className="cursor-pointer" />
+    <button
+      onClick={handleClick}
+      className="w-fit focus:rounded focus:ring focus:ring-sky-400"
+    >
+      <HiEllipsisVertical
+        size={25}
+        className="cursor-pointer text-slate-600 dark:text-slate-300"
+      />
     </button>
   );
 }
@@ -51,11 +57,10 @@ function List({ id, children }) {
   const { openId, position, close } = useContext(MenusContext);
   const { ref } = useOutsideClick(close);
   if (openId !== id) return null;
-  console.log(position);
   return createPortal(
     <ul
       style={{ top: `${position.y}px`, right: `${position.x}px` }}
-      className="fixed rounded border border-slate-400 bg-slate-100"
+      className="fixed rounded border border-slate-400 bg-slate-100 dark:bg-sky-700"
       ref={ref}
     >
       {children}
@@ -79,7 +84,7 @@ function ButtonMenu({ children, icon, onClick, variant }) {
   );
 }
 
-Menus.Menu = Menu;
+// Menus.Menu = Menu;
 Menus.Toggle = Toggle;
 Menus.List = List;
 Menus.ButtonMenu = ButtonMenu;

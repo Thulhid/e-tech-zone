@@ -1,9 +1,13 @@
-function Logo() {
+function Logo({
+  containerStyle,
+  logoSize = 'h-17 self-center',
+  textStyle = 'text-slate-600 dark:text-slate-300',
+}) {
   return (
-    <div className="mb-12 flex w-auto flex-col justify-center gap-2 text-center">
-      <img src="logo.png" alt={'logo'} className="h-17 self-center" />
+    <div className={containerStyle}>
+      <img src="logo.png" alt={'logo'} className={logoSize} />
       <span className="font-bold text-slate-700 uppercase">
-        <em>e-tech zone</em>
+        <em className={textStyle}>e-tech zone</em>
       </span>
     </div>
   );
