@@ -20,6 +20,16 @@
 
 **Configurable Business Settings** – Customize daily business rules and preferences.
 
+## Screenshots
+![image alt](https://github.com/Thulhid/e-tech-zone/blob/03142b474a0d90272fbd53b600cc4f5cad308b50/dark%20mode.jpg
+)
+![image alt](https://github.com/Thulhid/e-tech-zone/blob/03142b474a0d90272fbd53b600cc4f5cad308b50/light%20mode.jpg)
+
+
+### Live Demo [🔗 Live Site on Netlify](https://etechzone.netlify.app)
+
+
+
 ## 🚀 Installation & Setup  
 
 1️⃣ **Clone the repository** 
@@ -88,5 +98,5 @@ We welcome contributions to **E-Tech Zone**! To ensure a smooth collaboration, p
 - Keep **components small and reusable**.  
 - Follow **DRY (Don't Repeat Yourself)** and **KISS (Keep It Simple, Stupid)** principles. 
 
-## 🐛 If you find a *bug* ?
+### 🐛 If you find a *bug* ?
 **please open an **issue** with a clear description of the problem and steps to reproduce it.**
